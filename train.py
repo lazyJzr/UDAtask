@@ -13,27 +13,6 @@ from utils import parse_args, compute_accuracy
 
 args = parse_args()
 
-source_train = torch.randn((24, 3, 256, 256), dtype=torch.float32)
-source_labels = torch.randint(0, 5, (24,), dtype=torch.float32)
-source_train = torch.Tensor(source_train.clone().detach()).float().cuda()
-source_labels = torch.Tensor(source_labels.clone().detach()).float().cuda()
-
-target_train = torch.randn((24, 3, 256, 256), dtype=torch.float32)
-target_labels = torch.randint(0, 5, (24,), dtype=torch.float32)
-target_train = torch.Tensor(target_train.clone().detach()).float().cuda()
-target_labels = torch.Tensor(target_labels.clone().detach()).float().cuda()
-
-source_train = torch.tensor(source_train).type(torch.FloatTensor)
-source_labels = torch.tensor(source_labels).type(torch.LongTensor)
-target_train = torch.tensor(target_train).type(torch.FloatTensor)
-target_labels = torch.tensor(target_labels).type(torch.LongTensor)
-
-source_train_dataset = TensorDataset(source_train, source_labels)
-target_train_dataset = TensorDataset(target_train, target_labels)
-
-source_train_dataloader = DataLoader(source_train_dataset, batch_size=24, shuffle=True, drop_last=True)
-target_train_dataloader = DataLoader(target_train_dataset, batch_size=24, shuffle=True, drop_last=True)
-
 
 print('Training model...')
 
@@ -145,16 +124,6 @@ for t in range(args.num_epoch):
     print('Training completed ！！！')
 
 
-target_test = torch.randn((24, 3, 256, 256), dtype=torch.float32)
-target_test_labels = torch.randint(0, 5, (24,), dtype=torch.float32)
-target_test = torch.Tensor(target_test.clone().detach()).float().cuda()
-target_test_labels = torch.Tensor(target_test_labels.clone().detach()).float().cuda()
-
-target_test = torch.tensor(target_test).type(torch.FloatTensor)
-target_test_labels = torch.tensor(target_test_labels).type(torch.LongTensor)
-
-test_features = torch.tensor(target_test).type(torch.FloatTensor).cuda()
-test_labels = torch.tensor(target_test_labels).type(torch.LongTensor).cuda()
 
 
 with torch.no_grad():
